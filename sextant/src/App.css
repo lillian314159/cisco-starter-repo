@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  color: white;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -15,7 +18,6 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,3 +38,16 @@
     transform: rotate(360deg);
   }
 }
+
+.Card {
+  border: white solid 2px;
+  border-radius: 4px;
+  padding: .5rem;
+  }
+
+.Exhibit {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+  }
