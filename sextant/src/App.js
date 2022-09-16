@@ -3,7 +3,7 @@ import './App.css';
 
 function Banner(props) {
   return (
-    <h1>Sextant</h1>
+    <h1>{props.title}</h1>
   );
 }
 
@@ -33,7 +33,28 @@ class IPAddress extends React.Component {
   }
 
   render() {
-    return <p>{this.state.address}</p>
+    return <p>{this.state.address}</p>;
+  }
+}
+
+class PylonLatency extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      latency: null,
+    };
+  }
+
+  componentDidMount(){
+    const socket = new WebSocket(this.props.source);
+    socket.addEventListener('message', (event) => {
+      this.setState({latency: Date.now() - event.data});
+    });
+  }
+
+  render() {
+    return <p>{this.state.latency} ms</p>;
   }
 }
 
@@ -56,7 +77,7 @@ class Exhibit extends React.Component {
       <div className="Exhibit">
         <Card title="Public IPv4 Address" data={<IPAddress ipv6={false}/>} />
         <Card title="Public IPv6 Address" data={<IPAddress ipv6={true}/>} />
-        <Card title="Latency Information for Pylon" data="TODO" />
+        <Card title="Latency Information for Pylon" data={<PylonLatency source="ws://localhost:55455" />} />
       </div>
     );
   }
@@ -66,7 +87,7 @@ function App() {
   return (
     <div className="App">
         <header className="App-header">
-          <Banner />
+          <Banner title="Sextant" />
         </header>
         <Exhibit />
     </div>
